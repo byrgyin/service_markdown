@@ -8,10 +8,19 @@ import router from "./routes.js";
 dotenv.config();
 
 const app = express();
-const clientPromise = MongoClient.connect(process.env.DB_URI, {
-  maxPoolSize: 10,
-});
 
+// Инициализация подключения к MongoDB один раз
+let client;
+let clientPromise;
+
+if (!clientPromise) {
+  client = new MongoClient(process.env.DB_URI, {
+    maxPoolSize: 10,
+  });
+  clientPromise = client.connect(); // Создаём промис один раз
+}
+
+// Настройка Nunjucks
 nunjucks.configure("views", {
   autoescape: true,
   express: app,
