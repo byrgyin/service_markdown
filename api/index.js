@@ -34,7 +34,9 @@ app.use(express.static("public"));
 app.use(cookieParser());
 app.use('/',router)
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Listening on http://localhost:${port}`);
-});
+export default app;
+
+// const port = process.env.PORT || 3000;
+// app.listen(port, () => {
+//   console.log(`Listening on http://localhost:${port}`);
+// });
