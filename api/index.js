@@ -13,9 +13,17 @@ const app = express();
 let client;
 let clientPromise;
 
+// const clientPromise = MongoClient.connect(process.env.DB_URI, {
+//   maxPoolSize: 10,
+// });
+
 if (!clientPromise) {
   client = new MongoClient(process.env.DB_URI, {
     maxPoolSize: 10,
+    tls: true,
+    tlsCAFile: undefined, // Оставь как есть, если не используешь кастомные CA
+    tlsInsecure: false,
+    serverSelectionTimeoutMS: 15000
   });
   clientPromise = client.connect(); // Создаём промис один раз
 }
@@ -30,9 +38,11 @@ app.use(async (req, res, next) => {
   try {
     const client = await clientPromise;
     req.db = client.db("users");
+    console.timeEnd("Database Connection");
     next();
   } catch (err) {
-    console.error("Database connection error:", err);
+    console.error("Database connection error:", err.message);
+    console.error("Stack trace:", err.stack);
     next(err);
   }
 });
