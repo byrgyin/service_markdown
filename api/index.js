@@ -4,6 +4,8 @@ import {MongoClient} from "mongodb";
 import nunjucks from 'nunjucks';
 import dotenv from "dotenv";
 import router from "./routes.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 
@@ -22,7 +24,9 @@ if (!clientPromise) {
 }
 
 // Настройка Nunjucks
-nunjucks.configure("views", {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+nunjucks.configure(path.join(__dirname, '../views'), {
   autoescape: true,
   express: app,
 });
