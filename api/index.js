@@ -3,7 +3,7 @@ import cookieParser from "cookie-parser";
 import {MongoClient} from "mongodb";
 import nunjucks from 'nunjucks';
 import dotenv from "dotenv";
-import mainRoutes from "./routes/routes.js";
+import router from "./routes.js";
 
 dotenv.config();
 
@@ -32,9 +32,9 @@ app.set("view engine", "njk");
 app.use(express.json());
 app.use(express.static("public"));
 app.use(cookieParser());
-mainRoutes(app);
+app.use('/',router)
 
-// const port = process.env.PORT || 3000;
-// app.listen(port, () => {
-//   console.log(`Listening on http://localhost:${port}`);
-// });
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Listening on http://localhost:${port}`);
+});

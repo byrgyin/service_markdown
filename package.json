@@ -4,12 +4,12 @@
   "author": "",
   "description": "",
   "keywords": [],
-  "main": "index.js",
+  "main": "api/index.js",
   "type": "module",
   "scripts": {
     "db:migrate": "migrate-mongo up",
-    "start": "cross-env npm run db:migrate && node index.js",
-    "dev": "cross-env npm run db:migrate && nodemon index.js",
+    "start": "cross-env npm run db:migrate && node api/index.js",
+    "dev": "cross-env npm run db:migrate && nodemon api/index.js",
     "test": "echo \"Tests passed\" && exit 0",
     "build": "cross-env rimraf public/bundle.* && rollup --config"
   },
