@@ -20,9 +20,6 @@ let clientPromise;
 if (!clientPromise) {
   client = new MongoClient(process.env.DB_URI, {
     maxPoolSize: 10,
-    tls: true,
-    tlsCAFile: undefined, // Оставь как есть, если не используешь кастомные CA
-    tlsInsecure: false,
     serverSelectionTimeoutMS: 15000
   });
   clientPromise = client.connect(); // Создаём промис один раз
